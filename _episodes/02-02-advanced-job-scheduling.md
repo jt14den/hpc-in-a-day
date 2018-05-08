@@ -3,13 +3,18 @@ title: "Working with the scheduler"
 teaching: 25
 exercises: 5
 questions:
-- "How do I know if something went wrong?"
-- "How to decrease the waiting time of your job?"
+- "How do I know if something went wrong with my jobs?"
+- "How to decrease the waiting time of your jobs?"
 - "How do I cancel a job?"
 objectives:
-- ""
+- "Submit a job and monitor the status of it."
+- "Decipher the output of the monitoring application."
+- "Quit or cancel an already running job."
+- "Specify the expected runtime of your job to decrease the waiting time."
 keypoints:
-- "n.n."
+- "As there are many users logged in, using monitoring tools is key."
+- "People commit errors. Cancelling jobs is key to make your admin happy and not stress the system unnecessarily."
+- "The more information you give the job scheduler about your job, the quicker it will be dispatched/spooled."
 ---
 
 While submitting more tests jobs, Lola observes that she always mirrors the current directory for a log file to appear. This sometimes takes awhile and sometimes this happens almost instantly. How does she know, if a job is running or not?
@@ -19,7 +24,7 @@ While submitting more tests jobs, Lola observes that she always mirrors the curr
 ~~~
 {: .bash}
 
-Now Lola tries one of the monitoring commands, the she discovered in the manpages of her scheduler:
+Now Lola tries one of the monitoring commands, the she discovered in the manpages of her scheduletc/bash_completioner:
 
 ~~~
 {% include /snippets/02/monitor_hostname_date_sleep.{{ site.workshop_scheduler }} %}
@@ -82,8 +87,21 @@ The documentation indicates that she can provide an estimate of the _wall time_ 
 
 As the default wall time limit of the jobs is much higher than 6 minutes, Lola's job is started a lot earlier than the one of her colleagues and she does finish her tasks before she goes to lunch.
 
-> ## errors and outputs
+> ## Errors and Outputs
 >
-> Submit [this script](/snippets/02/errors_and_outputs.sh) to your cluster and split the output in stdout and stderr. Check the contents of the log files that were created. Use the manpage(s) of your scheduler to make the scheduler send both stdout and stderr to the same file.
+> 1. Submit [this script]({{ page.root }}/downloads/errors_and_outputs.sh) to your cluster and tell the scheduler to split the output in stdout and stderr. Check the contents of the log files that were created. 
+> 2. Submit the same job again, but this time make the scheduler send both stdout and stderr to the same output file. Use the manpage of the scheduler commands to find out how.
 >
+{: .challenge}
+
+> ## Ready, Set, Go!
+>
+> 1. Download this [small python script]({{ page.root }}/downloads/calc_pi.py) to some place on your cluster.
+> 2. Run it by issuing:
+> ~~~~~
+> $ python3 ./calc_pi.py 100000000
+> ~~~~~
+> 2. Put the `time` command before `python3` to measure the runtime of this command. 
+> 3. Submit a job with `time python3` but using `10000000000`, i.e. `100` times the argument of above. What is the runtime limit that you want to specify?
+> 
 {: .challenge}
